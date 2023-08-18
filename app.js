@@ -10,25 +10,34 @@ function newElement(){
         localStorage.setItem("todolist", listHTML);
     }
     document.querySelector('#task').value = "";
+}
 
-    const closeButtons = document.querySelectorAll('.close');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const listItem = this.parentElement;
-                    listItem.remove();
-                });
-            });
-    
+function checked(){
     lidom.addEventListener('click', function(){
         this.classList.add('checked');
     })
 }
 $(document).ready(function() {
+    $('#list').on('click', '.close', function() {
+      $(this).parent().remove(); 
+      updateLocalStorage(); 
+    });
+
+    function updateLocalStorage() {
+      let listHTML = $('#list').html();
+      localStorage.setItem("todolist", listHTML);
+    }
+
     let storedList = localStorage.getItem("todolist");
     if (storedList) {
       $('#list').html(storedList);
     }
+
+    $('#list').on('click', 'li', function() {
+        $(this).addClass('checked'); 
+      });
   });
+  
 
 
 
